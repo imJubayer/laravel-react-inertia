@@ -82,4 +82,10 @@ class NewsController extends Controller
     {
         //
     }
+
+    public function changeStatus(News $news)
+    {
+        $news->status = $news->status === 'draft' ? 'published' : 'draft';
+        $news->save();
+    }
 }

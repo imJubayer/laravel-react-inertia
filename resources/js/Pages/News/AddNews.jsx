@@ -68,7 +68,6 @@ const AddNews = ({
                     resetForm();
                     setAddNewsModalOpen(false);
                     // setUpdateNews(!updateNews);
-                    console.log(response.status);
                     // await axios
                     //     .post(`api/services`, values)
                     //     .then((response) => {

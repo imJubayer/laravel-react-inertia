@@ -23,7 +23,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 // import { useAuth } from "@/hooks/auth";
-import { Link, router, usePage } from "@inertiajs/react";
+import { Link, router, useForm, usePage } from "@inertiajs/react";
 
 import ColorSchemeToggle from "../utils/ColorSchemeToggle";
 import { closeSidebar } from "../utils/muiUtils";
@@ -62,9 +62,13 @@ export default function Sidebar() {
     const pageProps = usePage();
     const { user } = pageProps.props.auth;
     const { url, component } = usePage();
+    const form = useForm();
 
     const handleListItemClick = (href) => {
         router.visit(href);
+    };
+    const handleLogout = () => {
+        form.post("logout");
     };
     return (
         <Sheet
@@ -379,10 +383,13 @@ export default function Sidebar() {
                     <Typography level="title-sm">{user.name}</Typography>
                     <Typography level="body-xs">{user.email}</Typography>
                 </Box>
-                <IconButton size="sm" variant="plain" color="neutral">
-                    <Link href={route("logout")} method="post">
-                        <LogoutRoundedIcon />
-                    </Link>
+                <IconButton
+                    size="sm"
+                    variant="plain"
+                    color="neutral"
+                    onClick={handleLogout}
+                >
+                    <LogoutRoundedIcon />
                 </IconButton>
             </Box>
         </Sheet>

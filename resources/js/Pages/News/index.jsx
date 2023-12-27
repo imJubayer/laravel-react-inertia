@@ -12,8 +12,9 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
-import { router } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import AddService from "./AddNews";
+import toast from "react-hot-toast";
 
 const breadcrumbs = [{ label: "News", link: "#", isLast: true }];
 
@@ -27,13 +28,7 @@ export default function News({ auth, newses }) {
     const [editServiceModalOpen, setEditServiceModalOpen] = useState(false);
     const [selectedService, setSelectedService] = useState();
     const [updateService, setUpdateService] = useState(false);
-
-    console.log(newses);
-
-    const handleServiceClick = async (service) => {
-        // setSelectedService(service);
-        await router.reload();
-    };
+    const form = useForm();
 
     const handleDelete = async (id) => {
         const isDeletionConfirmed = await showConfirmationAlert(
@@ -52,11 +47,21 @@ export default function News({ auth, newses }) {
     };
 
     const handleStatus = async (id) => {
-        try {
-        } catch (e) {
-            toast.error(e.response.data.msg);
-            setLoading(false);
-        }
+        form.post(`/news/change-status/${id}`, {
+            onSuccess: () => {
+                // Handle success
+                toast.success("Status updated");
+            },
+            onError: () => {
+                // Handle error
+                console.error("Error updating status:", form.errors);
+            },
+        });
+        // try {
+        // } catch (e) {
+        //     toast.error(e.response.data.msg);
+        //     setLoading(false);
+        // }
     };
 
     const columns = [
@@ -111,7 +116,7 @@ export default function News({ auth, newses }) {
                                 type="primary"
                                 color="primary"
                                 onClick={() => {
-                                    handleServiceClick(news);
+                                    // handleServiceClick(news);
                                     // setServiceDetailsModalOpen(true);
                                 }}
                             >
@@ -156,7 +161,7 @@ export default function News({ auth, newses }) {
                     startDecorator={<Add />}
                     onClick={() => setAddNewsModalOpen(true)}
                 >
-                    Add Service
+                    Add News
                 </Button>
             }
         >
