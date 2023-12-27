@@ -16,19 +16,16 @@ import {
     IconButton,
     Stack,
 } from "@mui/joy";
-import MuiInput, { TextField } from "@mui/material";
-import axios from "@/lib/axios";
 import React, { useRef, useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { IRole, IUser } from "@/types/common";
+// import { IRole, IUser } from "@/types/common";
 import toast from "react-hot-toast";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import { EmailRounded } from "@mui/icons-material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { Grid } from "@mui/material";
-import { makeFormData } from "@/utils/helper";
-import PasswordInput from "@/components/ui-component/Input/PasswordInput";
+import PasswordInput from "../../Components/ui-component/Input/PasswordInput";
 
 const ChangePassword = ({ setLoading }) => {
     return (
@@ -56,24 +53,7 @@ const ChangePassword = ({ setLoading }) => {
                     { key: "password", value: values.password },
                 ];
                 try {
-                    await axios
-                        .post(
-                            "/api/users/change-password",
-                            makeFormData(formDataArray)
-                        )
-                        .then((response) => {
-                            if (response.data.success) {
-                                resetForm();
-                                toast.success(response.data.msg);
-                            } else {
-                                toast.error(response.data.msg);
-                            }
-                            setLoading(false);
-                        })
-                        .catch((error) => {
-                            setLoading(false);
-                            toast.error(error.response.data.data);
-                        });
+                    console.log(values);
                 } catch (error) {
                     if (error.response.data) {
                         toast.error(error.response.data.data);

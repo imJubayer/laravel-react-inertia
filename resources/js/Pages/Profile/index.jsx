@@ -13,16 +13,15 @@ import Tab, { tabClasses } from "@mui/joy/Tab";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/joy/CardActions";
 import CardOverflow from "@mui/joy/CardOverflow";
-import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import UserEditForm from "@/components/User/EditForm";
+// import UserEditForm from "@/components/User/EditForm";
 import { Grid, TabPanel } from "@mui/joy";
 import ChangePassword from "./ChangePassword";
 
 const breadcrumbs = [
     { label: "Users", link: "/users" },
-    { label: "Add New User", link: "#", isLast: true },
+    { label: "Profile", link: "#", isLast: true },
 ];
-export default function Profile() {
+export default function Profile({ auth }) {
     const [loading, setLoading] = useState(false);
     const tabs = (
         // <Tabs

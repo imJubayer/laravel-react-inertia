@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index(Request $request): Response
     {
         // dd($request->user());
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('Profile/index', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

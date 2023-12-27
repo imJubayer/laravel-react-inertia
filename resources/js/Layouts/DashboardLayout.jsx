@@ -46,32 +46,6 @@ export default function DashboardLayout({
     secondary,
     loading,
 }) {
-    // const router = useRouter();
-    // const roles: string[] = useSelector(
-    //     (state: any) => state.userManagerSlice.authorization.roles
-    // );
-
-    // useEnhancedEffect(() => {
-    //     // Feather icon setup: https://github.com/feathericons/feather#4-replace
-    //     // @ts-ignore
-    //     if (typeof feather !== "undefined") {
-    //         // @ts-ignore
-    //         feather.replace();
-    //     }
-    // }, [status]);
-
-    // React.useEffect(() => {
-    //     if (requiredRole) {
-    //         const requiredRolesArray = Array.isArray(requiredRole)
-    //             ? requiredRole
-    //             : [requiredRole];
-
-    //         // if (!requiredRolesArray.some((role) => roles.includes(role))) {
-    //         //     router.push("/unauthorized");
-    //         // }
-    //     }
-    // }, []);
-
     // @ts-ignore
     return (
         <React.Fragment>
@@ -126,23 +100,6 @@ export default function DashboardLayout({
                                         {!breadcrumb.isLast ? (
                                             <Link href={breadcrumb.link}>
                                                 {breadcrumb.label}
-                                                {/* <MuiLink
-                                                        underline={
-                                                            breadcrumb.isLast
-                                                                ? 'none'
-                                                                : 'hover'
-                                                        }
-                                                        color="neutral"
-                                                        aria-label={
-                                                            breadcrumb.label
-                                                        }>
-                                                        <Typography aria-current="page">
-                                                            {breadcrumb.icon &&
-                                                                breadcrumb.icon}
-                                                            {breadcrumb.label &&
-                                                                breadcrumb.label}
-                                                        </Typography>
-                                                    </MuiLink> */}
                                             </Link>
                                         ) : (
                                             <Typography

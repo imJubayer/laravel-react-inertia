@@ -3,6 +3,11 @@ import { Head } from "@inertiajs/react";
 import { Grid, Typography } from "@mui/joy";
 import DashboardLayout from "../Layouts/DashboardLayout";
 
+const breadcrumbs = [
+    // { label: "Users", link: "/users" },
+    { label: "Dashboard", link: "#", isLast: true },
+];
+
 export default function Dashboard({ auth }) {
     return (
         // <AuthenticatedLayout
@@ -26,7 +31,7 @@ export default function Dashboard({ auth }) {
 
         //     </div>
         // </AuthenticatedLayout>
-        <DashboardLayout head="Dashboard" title="CLP">
+        <DashboardLayout head="Dashboard" title="CLP" breadcrumbs={breadcrumbs}>
             <Typography level="h4">Welcome to CLP</Typography>
         </DashboardLayout>
     );
