@@ -20,7 +20,7 @@ import { Toaster } from "react-hot-toast";
 // // import { useRouter } from "next/router";
 // // import { useSelector } from "react-redux";
 import { Backdrop, CircularProgress } from "@mui/material";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
 // const useEnhancedEffect =
 //     typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
@@ -45,7 +45,13 @@ export default function DashboardLayout({
     title,
     secondary,
     loading,
+    authUser,
 }) {
+    const pageProps = usePage();
+    const { user } = pageProps.props.auth;
+    if (user !== undefined) {
+        authUser = user;
+    }
     // @ts-ignore
     return (
         <React.Fragment>
@@ -92,7 +98,7 @@ export default function DashboardLayout({
                                 separator={<ChevronRightRoundedIcon />}
                                 sx={{ pl: 0 }}
                             >
-                                <Link href="/home" passHref>
+                                <Link href="/home">
                                     <HomeRoundedIcon />
                                 </Link>
                                 {breadcrumbs.map((breadcrumb, index) => (

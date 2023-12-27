@@ -59,7 +59,10 @@ export default function Sidebar() {
     // const roles: string[] = useSelector(
     //     (state: any) => state.userManagerSlice.authorization.roles
     // );
+    const pageProps = usePage();
+    const { user } = pageProps.props.auth;
     const { url, component } = usePage();
+
     const handleListItemClick = (href) => {
         router.visit(href);
     };
@@ -122,7 +125,7 @@ export default function Sidebar() {
                 <IconButton variant="soft" color="primary" size="sm">
                     <BrightnessAutoRoundedIcon />
                 </IconButton>
-                <Typography level="title-lg">GGWP</Typography>
+                <Typography level="title-lg">CLP</Typography>
                 <ColorSchemeToggle sx={{ ml: "auto" }} />
             </Box>
             <Input
@@ -180,14 +183,12 @@ export default function Sidebar() {
 
                     <ListItem>
                         <ListItemButton
-                            onClick={() => handleListItemClick("/service")}
-                            selected={url === "/service"}
+                            onClick={() => handleListItemClick("/news")}
+                            selected={url === "/news"}
                         >
                             <MiscellaneousServicesIcon />
                             <ListItemContent>
-                                <Typography level="title-sm">
-                                    Service
-                                </Typography>
+                                <Typography level="title-sm">News</Typography>
                             </ListItemContent>
                         </ListItemButton>
                     </ListItem>
@@ -368,20 +369,22 @@ export default function Sidebar() {
                 </Card> */}
             </Box>
             <Divider />
-            {/* <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
                 <Avatar
                     variant="outlined"
                     size="sm"
-                    src={user?.profile_photo_url}
+                    src={user.profile_photo_url}
                 />
                 <Box sx={{ minWidth: 0, flex: 1 }}>
-                    <Typography level="title-sm">{user?.name}</Typography>
-                    <Typography level="body-xs">{user?.email}</Typography>
+                    <Typography level="title-sm">{user.name}</Typography>
+                    <Typography level="body-xs">{user.email}</Typography>
                 </Box>
                 <IconButton size="sm" variant="plain" color="neutral">
-                    <LogoutRoundedIcon onClick={logout} />
+                    <Link href={route("logout")} method="post">
+                        <LogoutRoundedIcon />
+                    </Link>
                 </IconButton>
-            </Box> */}
+            </Box>
         </Sheet>
     );
 }
