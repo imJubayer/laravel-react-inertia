@@ -1,12 +1,20 @@
 import { useEffect } from "react";
-import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
-import AuthLayout from "../../Layouts/AuthLayout";
+import { Link, useForm } from "@inertiajs/react";
+import JoySignInSideTemplate from "../../Layouts/AuthLay";
+import {
+    Box,
+    Button,
+    Checkbox,
+    FormControl,
+    FormLabel,
+    formLabelClasses,
+    Input,
+    Typography,
+    Stack,
+} from "@mui/joy";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import { PasswordOutlined } from "@mui/icons-material";
+import PasswordInput from "../../Components/ui-component/Input/PasswordInput";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -27,87 +35,109 @@ export default function Login({ status, canResetPassword }) {
         post(route("login"));
     };
 
-    return (
-        <>
-            <GuestLayout>
-                <Head title="Log in" />
-
-                {status && (
-                    <div className="mb-4 font-medium text-sm text-green-600">
-                        {status}
-                    </div>
-                )}
-
+    const children = (
+        <Box
+            component="main"
+            sx={{
+                my: "auto",
+                py: 2,
+                pb: 5,
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                width: 400,
+                maxWidth: "100%",
+                mx: "auto",
+                borderRadius: "sm",
+                "& form": {
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                },
+                [`& .${formLabelClasses.asterisk}`]: {
+                    visibility: "hidden",
+                },
+            }}
+        >
+            <Stack gap={4} sx={{ mb: 2 }}>
+                <Stack gap={1}>
+                    <Typography level="h3">Sign in</Typography>
+                    <Typography level="body-sm">
+                        New to company?{" "}
+                        <Link
+                            href={route("register")}
+                            style={{ color: "blue" }}
+                        >
+                            Sign up!
+                        </Link>
+                    </Typography>
+                </Stack>
+            </Stack>
+            <Stack gap={4} sx={{ mt: 2 }}>
                 <form onSubmit={submit}>
-                    <div>
-                        <InputLabel htmlFor="email" value="Email" />
-
-                        <TextInput
+                    <FormControl required>
+                        <FormLabel>Email</FormLabel>
+                        <Input
                             id="email"
                             type="email"
                             name="email"
+                            placeholder="Your email"
                             value={data.email}
-                            className="mt-1 block w-full"
-                            autoComplete="username"
-                            isFocused={true}
                             onChange={(e) => setData("email", e.target.value)}
+                            startDecorator={<EmailRoundedIcon />}
+                            autoFocus
                         />
+                    </FormControl>
+                    <FormControl required>
+                        <FormLabel>Password</FormLabel>
 
-                        <InputError message={errors.email} className="mt-2" />
-                    </div>
-
-                    <div className="mt-4">
-                        <InputLabel htmlFor="password" value="Password" />
-
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
+                        <PasswordInput
                             value={data.password}
-                            className="mt-1 block w-full"
-                            autoComplete="current-password"
                             onChange={(e) =>
                                 setData("password", e.target.value)
                             }
+                            name="password"
+                            placeholder="Password"
                         />
-
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
-                    </div>
-
-                    <div className="block mt-4">
-                        <label className="flex items-center">
+                    </FormControl>
+                    <Stack gap={4} sx={{ mt: 2 }}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
                             <Checkbox
+                                size="sm"
+                                label="Remember me"
                                 name="remember"
                                 checked={data.remember}
                                 onChange={(e) =>
                                     setData("remember", e.target.checked)
                                 }
                             />
-                            <span className="ms-2 text-sm text-gray-600">
-                                Remember me
-                            </span>
-                        </label>
-                    </div>
-
-                    <div className="flex items-center justify-end mt-4">
-                        {canResetPassword && (
                             <Link
                                 href={route("password.request")}
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                style={{ color: "blue" }}
                             >
                                 Forgot your password?
                             </Link>
-                        )}
-
-                        <PrimaryButton className="ms-4" disabled={processing}>
-                            Log in
-                        </PrimaryButton>
-                    </div>
+                        </Box>
+                        <Button type="submit" fullWidth>
+                            Sign in
+                        </Button>
+                    </Stack>
                 </form>
-            </GuestLayout>
+            </Stack>
+        </Box>
+    );
+
+    return (
+        <>
+            <JoySignInSideTemplate head="Sign in">
+                {children}
+            </JoySignInSideTemplate>
         </>
     );
 }
